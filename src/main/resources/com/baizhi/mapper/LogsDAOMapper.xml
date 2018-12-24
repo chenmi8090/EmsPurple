@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="com.baizhi.dao.LogsDAO">
+
+    <select id="queryAllLogs" resultType="Log">
+        select id,name,datetime,message,success
+        from e_logs
+        order by datetime desc
+        limit #{pageStart},#{pageEnd}
+    </select>
+
+    <select id="queryCounts" resultType="Integer">
+        select count(id)
+        from e_logs
+    </select>
+
+    <insert id="insertLog" parameterType="Log">
+        insert into e_logs values(#{id},#{name},#{datetime},#{message},#{success})
+    </insert>
+
+</mapper>
