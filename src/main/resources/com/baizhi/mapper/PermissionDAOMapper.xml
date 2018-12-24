@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="com.baizhi.dao.PermissionDAO">
+
+    <select id="queryPermissionByRoleId" resultType="Permission" parameterType="String">
+       SELECT
+			id,
+			permission_name permissionName,
+			permission_tag permissionTag
+		FROM
+			e_permission
+		WHERE
+			id IN (
+				SELECT
+					permission_id
+				FROM
+					e_role_permission
+				WHERE
+					role_id IN (
+						SELECT
+							role_id
+						FROM
+							e_role
+						WHERE
+							role_id IN (
+								SELECT
+									role_id
+								FROM
+									e_role
+								WHERE
+									role_id IN (
+										SELECT
+											role_id
+										FROM
+											e_admin_role
+										WHERE
+											admin_id = (
+												SELECT
+													id
+												FROM
+													e_admin
+												WHERE
+													username = #{username}
+											)
+									)
+							)
+					)
+			)
+    </select>
+
+</mapper>

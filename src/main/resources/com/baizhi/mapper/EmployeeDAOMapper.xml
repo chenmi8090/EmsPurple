@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="com.baizhi.dao.EmployeeDAO">
+
+    <select id="queryAll" resultType="Employee">
+        select id,name,salary,age,status
+        from e_emp
+        limit #{pageStart},#{pageEnd}
+    </select>
+
+    <select id="queryCounts" resultType="Integer">
+        select count(id)
+        from e_emp
+    </select>
+
+    <select id="queryEmployeeById" parameterType="String" resultType="Employee">
+        select id,name,salary,age,status
+        from e_emp
+        where id=#{id}
+    </select>
+
+    <insert id="insertEmployee" parameterType="Employee">
+        insert into e_emp values(#{id},#{name},#{salary},#{age},#{status})
+    </insert>
+
+    <update id="updateEmployee" parameterType="Employee">
+        update e_emp set name=#{name},salary=#{salary},age=#{age}
+        where id=#{id}
+    </update>
+
+    <delete id="deleteEmployee" parameterType="String">
+        delete from e_emp
+        where id=#{id}
+    </delete>
+
+</mapper>
