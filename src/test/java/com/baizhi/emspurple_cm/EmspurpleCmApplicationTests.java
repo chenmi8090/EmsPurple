@@ -58,5 +58,13 @@ public class EmspurpleCmApplicationTests {
         System.out.println(DelegatingSubject.class.getName() + ".RUN_AS_PRINCIPALS_SESSION_KEY");
     }
 
+    @Test
+    public void selectOne(){
+        Set<Permission> permissionByRoleId = permissionService.findPermissionByRoleId("aaa");
+        for (Permission permission : permissionByRoleId) {
+            System.out.println(permission);
+        }
+    }
+
 }
 
